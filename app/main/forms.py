@@ -11,17 +11,17 @@ class BlogForm(FlaskForm):
     blog_content = TextAreaField("Blog:", validators=[DataRequired()])
     submit = SubmitField('Submit')
 
-# class CommentForm(FlaskForm):
-#     """
-#         form for creating a blog comment
-#     """
-#     comment = TextAreaField('Leave a comment')
-#     submit = SubmitField('SUBMIT')
+class CommentForm(FlaskForm):
+    """
+        form for creating a blog comment
+    """
+    comment = TextAreaField('Leave a comment')
+    submit = SubmitField('SUBMIT')
 
-# class UpdateBlogForm(FlaskForm):
-#     blog_title = StringField("Title", validators=[DataRequired()])
-#     blog_content = TextAreaField("Type Updates", validators=[DataRequired()])
-#     submit = SubmitField("Update")
+class UpdateBlogForm(FlaskForm):
+    blog_title = StringField("Title", validators=[DataRequired()])
+    blog_content = TextAreaField("Type Updates", validators=[DataRequired()])
+    submit = SubmitField("Update")
 
 
 # class UpdateProfile(FlaskForm):
