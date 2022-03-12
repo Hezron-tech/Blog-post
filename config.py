@@ -5,7 +5,7 @@ class Config:
     '''
     General configuration parent class
     '''
-    RANDOM_QUOTE_API_URL='http://quotes.stormconsultancy.co.uk/random.json'
+    # RANDOM_QUOTE_URL='http://quotes.stormconsultancy.co.uk/random.json'
     SQLALCHEMY_DATABASE_URI ='postgresql+psycopg2://hezron:hezzy@localhost/post'
     UPLOADED_PHOTOS_DEST ='app/static/photos'
 
