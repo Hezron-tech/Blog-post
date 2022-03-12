@@ -1,5 +1,5 @@
 import app.requests as requests
-from models import Quote
+from . models import Quote
 
 def get_quote():
     """
