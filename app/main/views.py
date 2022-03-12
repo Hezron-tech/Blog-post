@@ -1,0 +1,57 @@
+from flask import render_template,request,redirect,url_for,abort
+from . import main
+from .forms import UpdateProfile
+from .. import db,photos
+from ..requests import get_quote
+from flask_login import current_user, login_required
+from ..models import User, Blog, Comment,Subscriber
+from app.main.forms import BlogForm,CommentForm
+from datetime import datetime
+
+@main.route("/", methods=["GET", "BLOG"])
+def index():
+    blogs = Blog.get_all_blogs()
+    quote = get_quote()
+
+    return render_template("index.html", blogs=blogs, quote=quote)
+
+@main.route("/blog/new", methods=["POST", "GET"])
+@login_required
+def new_blog():
+    newblogform = BlogForm()
+    if newblogform.validate_on_submit():
+        blog_title = newblogform.blog_title.data
+        newblogform.blog_title.data = ""
+        blog_content = newblogform.blog_content.data
+        newblogform.blog_content.data = ""
+        new_blog = Blog(blog_title=blog_title,
+                        blog_content=blog_content,
+                        posted_at=datetime.now(),
+                        user_id=current_user.id)
+        new_blog.save_blog()
+
+        return redirect(url_for(".index", id=new_blog.id))
+    return render_template("new_blog.html", newblogform=newblogform)
+
+@main.route("/blog/<int:id>", methods=["POST", "GET"])
+@login_required
+def write_comment(id):
+    blog = Blog.getBlogId(id)
+    comment = Comment.get_comments(id)
+    comment_form = CommentForm()
+
+    if comment_form.validate_on_submit():
+        comment = comment_form.comment.data
+        comment_form.comment.data = ""
+        new_comment = Comment(comment=comment,
+                              user_id=current_user.id,
+                              blog_id=blog.id)
+        new_comment.save_comment()
+        return redirect(url_for(".write_comment", id=blog.id))
+
+    return render_template("comment.html",
+                           comment_form=comment_form,
+                           comment=comment,
+                           blog=blog)
+
+                           
