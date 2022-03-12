@@ -1,17 +1,19 @@
+from . import db
+from flask_login import UserMixin
+from sqlalchemy.sql import func
+from .import login_manager
 
-from .import db
-
-class User(db.Model):
-    __tablename__ = 'users'
-
-
-    id = db.Column(db.Integer,primary_key = True)
-    username = db.Column(db.String(255),index = True)
-    email = db.Column(db.String(255),unique = True,index = True)
-    quotes = db.relationship("Quote", backref="user", lazy="dynamic")
-    comment = db.relationship("Comments", backref="user", lazy="dynamic")
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(150), unique=True)
+    username = db.Column(db.String(150), unique=True)
+    password = db.Column(db.String(150))
+    date_created = db.Column(db.DateTime(timezone=True), default=func.now())
+    posts = db.relationship('Post', backref='user', passive_deletes=True)
+    comments = db.relationship('Comment', backref='user', passive_deletes=True)
+    likes = db.relationship('Like', backref='user', passive_deletes=True)
+    bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
-    password_hash = db.Column(db.String(255))
 
 
 
