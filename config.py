@@ -5,9 +5,10 @@ class Config:
     '''
     General configuration parent class
     '''
-    # RANDOM_QUOTE_URL='http://quotes.stormconsultancy.co.uk/random.json'
+   
     SQLALCHEMY_DATABASE_URI ='postgresql+psycopg2://hezron:hezzy@localhost/post'
     UPLOADED_PHOTOS_DEST ='app/static/photos'
+    SECRET_KEY = 'hezzy'
 
     #  email configurations
     MAIL_SERVER = 'smtp.googlemail.com'
@@ -31,7 +32,7 @@ class ProdConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    pass
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
 class DevConfig(Config):
     '''
