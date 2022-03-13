@@ -30,10 +30,12 @@
 
 <style>
 
+   
+
     h2 {
     font-family: 'Josefin Sans',
     sans-serif;
-    font-size:35px;
+    font-size:25px;
     }
 
     h1,h2{
@@ -48,7 +50,7 @@
     }
 
     body{
-        background-color:rgb(179, 166, 166)
+        background-color:white
     }
 
     .quote{
@@ -57,7 +59,7 @@
     }
 
     .quotes{
-        background-color:rgb(195, 244, 253);
+        background-color:white;
         margin-top: -20px;
     }
 
@@ -66,8 +68,10 @@
 <div class="container-fluid quotes text-center">
 
     <h1>Welcome to Hezzy-Society</h1>
-    <h4 id="welcomeText">Welcome to  my personal blog, Welcome.</h4>
-    <hr>
+    <!-- <h4 id="welcomeText">Welcome to  my personal blog, Welcome.</h4> -->
+    <h2>Create Your Own <br>
+        Beautiful Blog</h2>
+    
     
     <div class="quote">
         <p style="font-weight:600;padding-left:50px">{{quote.quote}}</p> 
@@ -79,7 +83,7 @@
         font-size:25px;" href="{{url_for('main.new_blog')}}">
             Create a New Blog
         </a>
-        <hr>
+        
     </div>
 
 </div>
