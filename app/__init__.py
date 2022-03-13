@@ -23,6 +23,12 @@ def create_app(config_name):
 
     # Creating the app configurations
     app.config.from_object(config_options[config_name])
+    from .main import main as main_blueprint
+    from .auth import auth as auth_blueprint
+     
+     #registering the blueprint
+    app.register_blueprint(main_blueprint)
+    app.register_blueprint(auth_blueprint,url_prefix = '/auth')
 
     # configure UploadSet
     configure_uploads(app,photos)
@@ -35,15 +41,11 @@ def create_app(config_name):
     login_manager.init_app(app)
     mail.init_app(app)
 
-   # creating the app configurations
-    app.config.from_object(config_options[config_name])
+   
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 
-    from .main import main as main_blueprint
-    from .auth import auth as auth_blueprint
-     
-     #registering the blueprint
-    app.register_blueprint(main_blueprint)
-    app.register_blueprint(auth_blueprint,url_prefix = '/auth')
+   
 
 
     return app
